@@ -1,5 +1,6 @@
 package moe.seikimo.brainstone;
 
+import com.google.gson.Gson;
 import lombok.Getter;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -26,6 +27,8 @@ public final class Brainstone implements ModInitializer {
             = LoggerFactory.getLogger("Brainstone");
     @Getter private static final OkHttpClient httpClient
             = new OkHttpClient();
+    @Getter private static final Gson gson
+            = new Gson();
 
     @Getter private static final List<Door> loadedDoors
             = Collections.synchronizedList(new ArrayList<>());

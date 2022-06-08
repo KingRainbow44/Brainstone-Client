@@ -7,10 +7,12 @@ import moe.seikimo.brainstone.client.BrainstoneConfig;
 import okhttp3.Request;
 
 import java.io.IOException;
+import java.util.List;
 
 /** API wrapper for the brain. */
 public interface Brain {
     String STASIS_CHAMBER = "user/%s/stasis/%s/activate";
+    String FETCH_DOORS = "user/%s/door/all";
     String DOOR_ACTION = "user/%s/door/%s/%s";
 
     /**
@@ -24,6 +26,46 @@ public interface Brain {
         return new Request.Builder().get()
                 .url(config.getBaseUrl() + "/" + path)
                 .build();
+    }
+
+    /**
+     * Loads all doors from the backend.
+     */
+    static void loadDoors() {
+        var config = BrainstoneConfig.get();
+
+        // Prepare the request.
+        // Try-with-resources will automatically close the response.
+        try (var response = Brainstone.getHttpClient().newCall(
+                Brain.prepare(FETCH_DOORS.formatted(config.getUserId()))
+        ).execute()) {
+            // Check if the request was successful.
+            if (response.code() != Result.SUCCESS.getCode()) {
+                Brainstone.getLogger().error("Failed to fetch doors.");
+                return;
+            }
+
+            // Load the response body.
+            var body = response.body();
+            if (body == null) {
+                Brainstone.getLogger().error("Failed to fetch doors.");
+                return;
+            }
+
+            // Parse the response body.
+            var parsed = Brainstone.getGson().fromJson(body.string(), Door[].class);
+            if (parsed == null) {
+                Brainstone.getLogger().error("Failed to fetch doors.");
+                return;
+            }
+
+            // Clear the loaded doors.
+            Brainstone.getLoadedDoors().clear();
+            // Add the doors to the list.
+            Brainstone.getLoadedDoors().addAll(List.of(parsed));
+        } catch (IOException exception) {
+            Brainstone.getLogger().error("Failed to perform request.", exception);
+        }
     }
 
     /**

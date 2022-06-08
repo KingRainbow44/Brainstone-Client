@@ -1,5 +1,6 @@
 package moe.seikimo.brainstone.client;
 
+import moe.seikimo.brainstone.Brain;
 import moe.seikimo.brainstone.Brainstone;
 import moe.seikimo.brainstone.KeyBinds;
 import moe.seikimo.brainstone.client.events.PlayerMoveEvent;
@@ -23,6 +24,11 @@ public final class BrainstoneClient implements ClientModInitializer {
         // Register event handlers.
         ClientTickEvents.END_CLIENT_TICK.register(this::checkKeyBinds);
         PlayerMoveEvent.EVENT.register(this::onPlayerMove);
+
+        // Create a worker thread.
+        new Thread(() -> {
+            Brain.loadDoors(); // Load doors from the server.
+        }).start();
     }
 
     /**
