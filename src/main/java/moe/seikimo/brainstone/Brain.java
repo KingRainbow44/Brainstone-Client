@@ -63,6 +63,7 @@ public interface Brain {
             Brainstone.getLoadedDoors().clear();
             // Add the doors to the list.
             Brainstone.getLoadedDoors().addAll(List.of(parsed));
+            Brainstone.getLoadedDoors().forEach(Door::onLoad);
         } catch (IOException exception) {
             Brainstone.getLogger().error("Failed to perform request.", exception);
         }
