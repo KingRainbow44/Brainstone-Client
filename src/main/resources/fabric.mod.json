@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "brainstone",
+  "version": "${version}",
+  "name": "Brainstone",
+  "description": "The client interface between the game and security.",
+  "authors": ["KingRainbow44"],
+  "contact": {
+    "repo": "https://github.com/KingRainbow44/Brainstone"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/Brainstone/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "modmenu": ["moe.seikimo.brainstone.client.BrainstoneModMenu"],
+    "client": ["moe.seikimo.brainstone.client.BrainstoneClient"],
+    "main": ["moe.seikimo.brainstone.Brainstone"]
+  },
+  "mixins": [
+    "Brainstone.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/M4WTCDRqBR"
+      },
+      "update_checker": false
+    }
+  }
+}

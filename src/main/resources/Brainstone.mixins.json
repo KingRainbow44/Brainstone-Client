@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "moe.seikimo.brainstone.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "MixinPlayer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "action.brainstone.stasis.success": "Activated remote stasis chamber.",
+  "action.brainstone.stasis.failure": "Failed to activate remote stasis chamber.",
+
+  "key.brainstone.stasis_1": "Activate Stasis Chamber 1",
+  "key.brainstone.stasis_2": "Activate Stasis Chamber 2",
+  "key.brainstone.panic": "Enable Panic Mode",
+  "key.brainstone.disarm": "Disarm Base Security",
+  "category.brainstone.controls": "Base Controls",
+
+  "text.autoconfig.brainstone.title": "Brainstone Configuration",
+  "text.autoconfig.brainstone.option.baseUrl": "Base URL for Brainstone",
+  "text.autoconfig.brainstone.option.userId": "Brainstone User ID",
+
+  "text.autoconfig.brainstone.option.security": "Base Security",
+  "text.autoconfig.brainstone.option.security.disarmDuration": "Duration of Security Disarm",
+  "text.autoconfig.brainstone.option.security.autoOpenDoors": "Automatically Open Nearby Doors",
+  "text.autoconfig.brainstone.option.security.autoDoorDistance": "Distance To Open Door Automatically",
+
+  "text.autoconfig.brainstone.option.stasis": "Stasis Chambers",
+  "text.autoconfig.brainstone.option.stasis.primary": "Primary Chamber ID",
+  "text.autoconfig.brainstone.option.stasis.secondary": "Secondary Chamber ID"
+}
