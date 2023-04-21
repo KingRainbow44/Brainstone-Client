@@ -12,8 +12,8 @@ import java.util.List;
 /** API wrapper for the brain. */
 public interface Brain {
     String STASIS_CHAMBER = "user/%s/stasis/%s/activate";
-    String FETCH_DOORS = "user/%s/door/all";
-    String DOOR_ACTION = "user/%s/door/%s/%s";
+    String FETCH_DOORS = "base/%s/doors/all";
+    String DOOR_ACTION = "base/%s/doors/%s/%s";
 
     /**
      * Prepares an HTTP request to the brain.
@@ -37,7 +37,7 @@ public interface Brain {
         // Prepare the request.
         // Try-with-resources will automatically close the response.
         try (var response = Brainstone.getHttpClient().newCall(
-                Brain.prepare(FETCH_DOORS.formatted(config.getUserId()))
+                Brain.prepare(FETCH_DOORS.formatted(config.getBaseId()))
         ).execute()) {
             // Check if the request was successful.
             if (response.code() != Result.SUCCESS.getCode()) {
@@ -108,7 +108,7 @@ public interface Brain {
         // Try-with-resources will automatically close the response.
         try (var response = Brainstone.getHttpClient().newCall(
                 Brain.prepare(DOOR_ACTION.formatted(
-                        config.getUserId(), door.getDoorId(),
+                        config.getBaseId(), door.getDoorId(),
                         open ? "open" : "close"
                 ))
         ).execute()) {

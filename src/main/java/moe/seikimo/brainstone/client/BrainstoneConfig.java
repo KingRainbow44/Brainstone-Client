@@ -19,6 +19,7 @@ import moe.seikimo.brainstone.Brainstone;
 
     private String baseUrl = "http://192.168.0.198:25563";
     private String userId = "";
+    private String baseId = "";
 
     @CollapsibleObject
     private Security security = new Security();

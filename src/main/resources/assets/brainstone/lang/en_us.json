@@ -11,6 +11,7 @@
   "text.autoconfig.brainstone.title": "Brainstone Configuration",
   "text.autoconfig.brainstone.option.baseUrl": "Base URL for Brainstone",
   "text.autoconfig.brainstone.option.userId": "Brainstone User ID",
+  "text.autoconfig.brainstone.option.baseId": "Brainstone-controlled Base ID",
 
   "text.autoconfig.brainstone.option.security": "Base Security",
   "text.autoconfig.brainstone.option.security.disarmDuration": "Duration of Security Disarm",
