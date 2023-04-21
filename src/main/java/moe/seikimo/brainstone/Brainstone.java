@@ -9,6 +9,7 @@ import moe.seikimo.brainstone.client.BrainstoneConfig;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
@@ -50,6 +51,17 @@ public final class Brainstone implements ModInitializer {
     }
 
     /**
+     * Checks if the server is a Brainstone server.
+     *
+     * @param server The server to check.
+     * @return True if the server is a Brainstone server, false otherwise.
+     */
+    public static boolean isBrainstoneServer(ServerData server) {
+        return server.ip.contains("mc.magix.lol") ||
+                server.ip.contains("192.168.198");
+    }
+
+    /**
      * Checks if the player is connected to the server.
      *
      * @return True if the player is connected to the server, false otherwise.
@@ -62,8 +74,7 @@ public final class Brainstone implements ModInitializer {
         var server = connection.getServerData();
         if (server == null) return false;
 
-        return server.ip.contains("mc.magix.lol") ||
-                server.ip.contains("192.168.198");
+        return Brainstone.isBrainstoneServer(server);
     }
 
     /**
@@ -135,15 +146,19 @@ public final class Brainstone implements ModInitializer {
 
         // Find doors that are in the open map which don't exist in the valid doors list.
         // Close these doors afterwards.
+        var removeDoors = new ArrayList<Door>();
         Brainstone.getOpenedDoors().stream()
                 .filter(door -> !doors.contains(door))
                 .forEach(door -> {
                     // Close the door.
                     var result = Brain.toggleDoor(door, false);
                     if (result == Brain.Result.SUCCESS) {
-                        Brainstone.getOpenedDoors().remove(door);
+                        removeDoors.add(door);
                     }
                 });
+
+        // Remove the doors from the opened doors list.
+        Brainstone.getOpenedDoors().removeAll(removeDoors);
 
         // Open all doors.
         doors.forEach(door -> {
